@@ -9,6 +9,7 @@
     <Copyright>Novo Solutions AS</Copyright>
     <PackageLicenseUrl>https://github.com/lasrol/ServiceHost/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/lasrol/ServiceHost</PackageProjectUrl>
+    <PackageVersion>1.0.0</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
