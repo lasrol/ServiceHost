@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using Autofac;
-using Autofac.Core;
-using Microsoft.Azure.ServiceBus;
+﻿using System.IO;
 using Microsoft.Extensions.Configuration;
 using Novos.ServiceHost;
 

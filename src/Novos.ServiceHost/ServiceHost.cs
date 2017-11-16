@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Novos.ServiceHost
