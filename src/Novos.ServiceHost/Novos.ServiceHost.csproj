@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0;net462</TargetFrameworks>
     <OutputType>Library</OutputType>
+    <Title>Novos.ServiceHost</Title>
+    <IsPackable>true</IsPackable>
+    <Authors>Lasse Rolstad</Authors>
+    <Copyright>Novo Solutions AS</Copyright>
+    <PackageLicenseUrl>https://github.com/lasrol/ServiceHost/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/lasrol/ServiceHost</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
