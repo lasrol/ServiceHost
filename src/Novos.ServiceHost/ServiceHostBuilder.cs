@@ -15,7 +15,9 @@ namespace Novos.ServiceHost
 
             var builder = new ConfigurationBuilder();
             configurationBuilder.Invoke(builder);
-            _serviceCollection.AddSingleton(builder.Build());
+            var configRoot = builder.Build();
+            _serviceCollection.AddSingleton(configRoot);
+            _serviceCollection.AddSingleton<IConfiguration>(configRoot);
             return this;
         }
 
