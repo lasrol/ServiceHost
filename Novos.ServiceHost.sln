@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7FA3D36A-8D20-46E7-98E5-4C49D422975B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C1B2BF77-8615-4407-9D91-7CC0D9BB350B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{7BF022D7-B872-4C9D-88D9-156C650FD75F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Novos.Sample.Service", "samples\Novos.Sample.Service\Novos.Sample.Service.csproj", "{91BC3CFE-85E7-4888-A831-C914DA225F2B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Novos.ServiceHost", "src\Novos.ServiceHost\Novos.ServiceHost.csproj", "{EFDB0086-C9D6-48E0-B6EC-16EC8721F904}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91BC3CFE-85E7-4888-A831-C914DA225F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91BC3CFE-85E7-4888-A831-C914DA225F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91BC3CFE-85E7-4888-A831-C914DA225F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91BC3CFE-85E7-4888-A831-C914DA225F2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFDB0086-C9D6-48E0-B6EC-16EC8721F904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFDB0086-C9D6-48E0-B6EC-16EC8721F904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFDB0086-C9D6-48E0-B6EC-16EC8721F904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFDB0086-C9D6-48E0-B6EC-16EC8721F904}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{91BC3CFE-85E7-4888-A831-C914DA225F2B} = {7BF022D7-B872-4C9D-88D9-156C650FD75F}
+		{EFDB0086-C9D6-48E0-B6EC-16EC8721F904} = {7FA3D36A-8D20-46E7-98E5-4C49D422975B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0049D66-446F-4AD7-9779-3F55A902535A}
+	EndGlobalSection
+EndGlobal
