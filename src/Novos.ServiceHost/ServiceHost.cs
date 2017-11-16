@@ -36,11 +36,25 @@ namespace Novos.ServiceHost
             while (true)
             {
                 _cancelationTokenSource = new CancellationTokenSource();
-                new Task(() => 
-                    runMethod.Invoke(startup, new[] { _context }), 
-                    _cancelationTokenSource.Token, 
-                    TaskCreationOptions.LongRunning)
-                    .Start();
+
+                var task = new Task(() =>
+                        runMethod.Invoke(startup, new[] { _context }),
+                    _cancelationTokenSource.Token,
+                    TaskCreationOptions.LongRunning);
+
+                task.Start();
+
+                try
+                {
+                    task.Wait();
+                }
+                catch (AggregateException ae)
+                {
+                    foreach (var e in ae.InnerExceptions)
+                    {
+                        throw e;
+                    }
+                }
             }
         }
 

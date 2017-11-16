@@ -13,7 +13,16 @@ namespace Novos.Sample.Service
 
         public void Run(ServiceContext serviceContext)
         {
-            Console.WriteLine("Running...");
+            try
+            {
+                throw new Exception("Testing");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            //Console.WriteLine("Running...");
         }
     }
 }
