@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Novos.ServiceHost
 {
@@ -11,6 +13,7 @@ namespace Novos.ServiceHost
     {
         private readonly ServiceContext _context;
         private readonly IServiceStartup _startup;
+        private ILogger<ServiceHost> _logger;
 
         public ServiceHost(ServiceContext serviceProvider)
         {
@@ -26,11 +29,20 @@ namespace Novos.ServiceHost
 
             var appBuilder = new ServiceAppBuilder(_context);
             _startup.ConfigurePipeline(appBuilder);
+            _logger = _context.Services.GetService<ILogger<ServiceHost>>() ?? new NullLoggerFactory().CreateLogger<ServiceHost>();
 
             var delegates = appBuilder.Build();
 
-            delegates(_context);
-
+            try
+            {
+                delegates(_context);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                _logger.LogError(e.StackTrace);
+            }
+            
             Thread.Sleep(Timeout.Infinite);
         }
 
