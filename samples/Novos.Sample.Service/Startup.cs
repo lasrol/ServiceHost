@@ -1,31 +1,44 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Novos.ServiceHost;
+using Microsoft.Extensions.Logging;
 
 namespace Novos.Sample.Service
 {
-    public class Startup
+    public class Startup : IServiceStartup
     {
+        private readonly ILogger<Startup> _logger;
+
+        public Startup(ILogger<Startup> logger)
+        {
+            _logger = logger;
+        }
         public void ConfigureServices(IServiceCollection containerBuilder)
         {
             
         }
 
-        public void Run(ServiceContext serviceContext)
+        public void ConfigurePipeline(IServiceAppBuilder app)
         {
-            var config = serviceContext.Services.GetRequiredService<IConfiguration>();
+            _logger.LogInformation("Sample logging");
 
-            try
+            app.Run((context) =>
             {
-                throw new Exception("Testing");
-            }
-            catch (Exception e)
+                _logger.LogInformation("Using inline task");
+                return Task.CompletedTask;
+            });
+
+            app.UseTask<RunTask>();
+
+            app.UseTask(typeof(RunTask));
+
+            app.Run((context) =>
             {
-                Console.WriteLine(e);
-                throw;
-            }
-            //Console.WriteLine("Running...");
+                _logger.LogInformation("Using second inline task");
+                return Task.CompletedTask;
+            });
         }
     }
 }

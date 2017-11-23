@@ -2,7 +2,7 @@
 
 namespace Novos.ServiceHost
 {
-    public class ServiceContext
+    public class ServiceContext : IServiceContext
     {
         public IServiceProvider Services { get; set; }   
     }

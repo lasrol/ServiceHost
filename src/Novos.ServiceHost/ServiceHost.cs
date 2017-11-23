@@ -10,52 +10,27 @@ namespace Novos.ServiceHost
     public class ServiceHost
     {
         private readonly ServiceContext _context;
-        private readonly Type _startupClassType;
-        private CancellationTokenSource _cancelationTokenSource;
+        private readonly IServiceStartup _startup;
 
-        public ServiceHost(ServiceContext serviceProvider, Type startupClassType)
+        public ServiceHost(ServiceContext serviceProvider)
         {
             _context = serviceProvider;
-            _startupClassType = startupClassType;
+            _startup = _context.Services.GetRequiredService<IServiceStartup>();
         }
 
         public void Run()
         {
-            if (_startupClassType == null)
-                throw new InvalidOperationException("Cannot start host without a startup class defined");
 
-            var startup = Activator.CreateInstance(_startupClassType);
-            var configureServicesMethod = _startupClassType.GetMethod("ConfigureServices");
-            var parameters = GetMethodDependencies(configureServicesMethod.GetParameters());
+            _startup.ConfigureServices(_context.Services.GetRequiredService<IServiceCollection>());
 
-            configureServicesMethod.Invoke(startup, parameters);
-            _context.Services = _context.Services.GetService<IServiceCollection>().BuildServiceProvider();
+            var appBuilder = new ServiceAppBuilder(_context);
+            _startup.ConfigurePipeline(appBuilder);
 
-            var runMethod = _startupClassType.GetMethod("Run");
+            var delegates = appBuilder.Build();
 
-            while (true)
-            {
-                _cancelationTokenSource = new CancellationTokenSource();
+            delegates(_context);
 
-                var task = new Task(() =>
-                        runMethod.Invoke(startup, new[] { _context }),
-                    _cancelationTokenSource.Token,
-                    TaskCreationOptions.LongRunning);
-
-                task.Start();
-
-                try
-                {
-                    task.Wait();
-                }
-                catch (AggregateException ae)
-                {
-                    foreach (var e in ae.InnerExceptions)
-                    {
-                        throw e;
-                    }
-                }
-            }
+            Thread.Sleep(Timeout.Infinite);
         }
 
         private object[] GetMethodDependencies(ParameterInfo[] parameters)

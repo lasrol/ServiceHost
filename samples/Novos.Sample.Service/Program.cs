@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Novos.ServiceHost;
 
 namespace Novos.Sample.Service
@@ -13,6 +14,7 @@ namespace Novos.Sample.Service
                     .AddJsonFile("appsettings.json")
                     .AddEnvironmentVariables()
                 )
+                .AddLogging(o => o.AddConsole())
                 .SetStartup<Startup>()
                 .Build();
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,13 +30,17 @@ namespace Novos.ServiceHost
 
         public ServiceHost Build()
         {
+            //TODO: Use own internal service collection?
             _serviceCollection.AddSingleton(_serviceCollection);
+            _serviceCollection.AddSingleton<IServiceAppBuilder , ServiceAppBuilder>();
+            _serviceCollection.AddSingleton(typeof(IServiceStartup), _startupType);
+
             var context = new ServiceContext
             {
                 Services = _serviceCollection.BuildServiceProvider()
             };
 
-            return new ServiceHost(context, _startupType);
+            return new ServiceHost(context);
         }
 
         public ServiceHostBuilder SetStartup<T>()
