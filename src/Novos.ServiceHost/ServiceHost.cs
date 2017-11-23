@@ -20,8 +20,9 @@ namespace Novos.ServiceHost
 
         public void Run()
         {
-
-            _startup.ConfigureServices(_context.Services.GetRequiredService<IServiceCollection>());
+            var sc = _context.Services.GetRequiredService<IServiceCollection>();
+            _startup.ConfigureServices(sc);
+            _context.Services = sc.BuildServiceProvider();
 
             var appBuilder = new ServiceAppBuilder(_context);
             _startup.ConfigurePipeline(appBuilder);
